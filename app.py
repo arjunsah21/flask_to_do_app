@@ -1,6 +1,7 @@
 from flask import Flask, render_template, url_for, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+from sqlalchemy import desc
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
@@ -28,7 +29,7 @@ def indedx():
         except:
             return "issue in adding the new task"
     else:
-        tasks = ToDo.query.order_by(ToDo.date_created).all()
+        tasks = ToDo.query.order_by(desc(ToDo.date_created)).all()
         return render_template('index.html', tasks = tasks)
         
 
